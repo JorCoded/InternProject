@@ -54,9 +54,10 @@ class Attendance {
         /* if (empty($ip) || $ip === '127.0.0.1' || substr($ip, 0, 3) === '10.'
             || substr($ip, 0, 8) === '192.168.' || substr($ip, 0, 7) === '172.16.') {
             return $ip ?: 'Unknown';
-            }
+        } */
 
-            $apiUrl = "http://ip-api.com/json/" . urlencode($ip) . "?fields=status,city,regionName,country,countryCode,lat,lon";
+            //$apiUrl = "http://ip-api.com/json/" . urlencode($ip) . "?fields=status,city,regionName,country,countryCode,lat,lon";
+            $apiUrl = "http://ip-api.com/json/" . "?fields=status,city,regionName,country,countryCode,lat,lon";
 
             // file_get_contents may be disabled — use cURL as fallback
             $response = false;
@@ -92,35 +93,35 @@ class Attendance {
 
             // Fallback: just store the raw IP
             return $ip; 
-        */
-        $locationData = [];
+       
+        /* $locationData = [];
 
-        $apiUrl = "http://ip-api.com/json/";
-        $response = file_get_contents($apiUrl);
-        if($response){
-            $data = json_decode($response, true);
+            $apiUrl = "http://ip-api.com/json/";
+            $response = file_get_contents($apiUrl);
+            if($response){
+                $data = json_decode($response, true);
 
-            if ($data && $data['status'] === 'success') {
-                $city = $data['city'] ?? '';
-                $region = $data['regionName'] ?? '';
-                $country = $data['country'] ?? '';
-                $lat = $data['lat'] ?? '';
-                $lon = $data['lon'] ?? '';
+                if ($data && $data['status'] === 'success') {
+                    $city = $data['city'] ?? '';
+                    $region = $data['regionName'] ?? '';
+                    $country = $data['country'] ?? '';
+                    $lat = $data['lat'] ?? '';
+                    $lon = $data['lon'] ?? '';
 
-                $locationData[] = $city;
-                $locationData[] = $region;
-                $locationData[] = $country;
-                $locationData[] = $lat;
-                $locationData[] = $lon;
+                    $locationData[] = $city;
+                    $locationData[] = $region;
+                    $locationData[] = $country;
+                    $locationData[] = $lat;
+                    $locationData[] = $lon;
 
-            } else {
-                echo "Could not retrieve location.";
+                } else {
+                    echo "Could not retrieve location.";
+                }
+                $label = implode(',', $locationData);
+                return $label?:"Location not available";
             }
-            $label = implode(',', $locationData);
-            return $label?:"Location not available";
-        }
-        return "API Error";
-
+            return "API Error";
+        */
     }
 
     // ── Clock in / out ────────────────────────────────────────
